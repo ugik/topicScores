@@ -13,9 +13,8 @@ pw = open('/home/ubuntu/.env', 'r').read()[:16]
 
 @csrf_exempt
 def push(request):
-	correlations = {}
-	data = 'None'
-	json_data = json.loads(request.body)
+	correlations = {}  # dictionary of correlations
+	json_data = json.loads(request.body)  # load text from body of request
 	try:
 		# connect to Luminoso and our english corpus
 		project_name = "GP english sample"
