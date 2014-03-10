@@ -7,13 +7,20 @@ from django.views.decorators.csrf import csrf_exempt
 from luminoso_api import LuminosoClient
 
 import json
+import os
 
 # get pw from hidden file, TBD: figure out how to get EC2 instance env variables set
-pw = open('/home/ubuntu/.env', 'r').read()[:16]
+pw = ""
+fname = '/home/ubuntu/.env'
+if os.path.isfile(fname):
+	pw = open(fname, 'r').read()[:16]
 
 @csrf_exempt
 def push(request):
 	correlations = {}  # dictionary of correlations
+	if len(request.body) == 0:
+		return HttpResponseRedirect("/")
+
 	json_data = json.loads(request.body)  # load text from body of request
 	try:
 		# connect to Luminoso and our english corpus
@@ -32,4 +39,8 @@ def push(request):
 	except KeyError:
 		HttpResponseServerError('Malformed data')
 	return HttpResponse(json.dumps(correlations))
+
+def hello(request):
+	html = '<html><body><h2>.../scores/   </h2>REST PUT or POST with text in the request Body<br>eg.<br>PUT http://ec2-54-186-59-57.us-west-2.compute.amazonaws.com/scores/<br>body:{"text":"The snow is falling in the North."}</body></html>'
+	return HttpResponse(html)
 

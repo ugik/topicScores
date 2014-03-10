@@ -6,7 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^scores/$', 'topicScores.views.push'),
-
+	url(r'^$', 'topicScores.views.hello'),
 )
 
 
