@@ -42,6 +42,7 @@ def push(request):
 
 def hello(request):
 # provide some basic landing page
-	html = '<html><body><h2>.../scores/   </h2>REST PUT or POST with text in the request Body<br>eg.<br>PUT http://ec2-54-186-59-57.us-west-2.compute.amazonaws.com/scores/<br>body:{"text":"The snow is falling in the North."}</body></html>'
-	return HttpResponse(html)
+	return render_to_response('index.html')
+
+
 

@@ -26,6 +26,11 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Template directories
+TEMPLATE_DIRS = (
+	BASE_DIR+'/templates',
+	BASE_DIR+'/topicScores/templates',
+)
 
 # Application definition
 
