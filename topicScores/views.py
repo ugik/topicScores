@@ -1,8 +1,6 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.core.context_processors import csrf
-
 from django.views.decorators.csrf import csrf_exempt
 from luminoso_api import LuminosoClient
 
@@ -18,6 +16,8 @@ if os.path.isfile(fname):
 @csrf_exempt
 def push(request):
 	correlations = {}  # dictionary of correlations
+
+# handle lack of request body
 	if len(request.body) == 0:
 		return HttpResponseRedirect("/")
 
@@ -41,6 +41,7 @@ def push(request):
 	return HttpResponse(json.dumps(correlations))
 
 def hello(request):
+# provide some basic landing page
 	html = '<html><body><h2>.../scores/   </h2>REST PUT or POST with text in the request Body<br>eg.<br>PUT http://ec2-54-186-59-57.us-west-2.compute.amazonaws.com/scores/<br>body:{"text":"The snow is falling in the North."}</body></html>'
 	return HttpResponse(html)
 
